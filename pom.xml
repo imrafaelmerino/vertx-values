@@ -4,10 +4,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.github.imrafaelmerino</groupId>
-  <artifactId>vertx-values</artifactId>
+  <artifactId>vertx-json-values</artifactId>
   <packaging>jar</packaging>
   <version>0.1</version>
-  <name>vertx-values</name>
+  <name>vertx-json-values</name>
   <description>Vertx codecs to work with json-values</description>
   <url>https://github.com/imrafaelmerino/vertx-values</url>
   <licenses>
@@ -31,13 +31,13 @@
     <NEXUS-STAGING-MAVEN-PLUGIN.VERSION>1.6.12</NEXUS-STAGING-MAVEN-PLUGIN.VERSION>
     <MAVEN-GPG-PLUGIN.VERSION>1.6</MAVEN-GPG-PLUGIN.VERSION>
     <MAVEN-SOURCE-PLUGIN.VERSION>3.0.1</MAVEN-SOURCE-PLUGIN.VERSION>
+    <JACOCO-MAVEN-PLUGIN.VERSION>0.8.8</JACOCO-MAVEN-PLUGIN.VERSION>
     <project.build.sourceEncoding>UTF8</project.build.sourceEncoding>
     <MAVEN-COMPILER-PLUGIN.VERSION>3.10.1</MAVEN-COMPILER-PLUGIN.VERSION>
     <MAVEN-COMPILER-PLUGIN.SOURCE>1.8</MAVEN-COMPILER-PLUGIN.SOURCE>
     <MAVEN-COMPILER-PLUGIN.TARGET>1.8</MAVEN-COMPILER-PLUGIN.TARGET>
     <MAVEN-SUREFIRE-PLUGIN.VERSION>3.0.0-M6</MAVEN-SUREFIRE-PLUGIN.VERSION>
     <MAVEN-JAR-PLUGIN.VERSION>3.2.2</MAVEN-JAR-PLUGIN.VERSION>
-    <MONGODB-DRIVER-SYNC.VERSION>4.0.0</MONGODB-DRIVER-SYNC.VERSION>
     <MAVEN-JAVADOC-PLUGIN.VERSION>3.3.2</MAVEN-JAVADOC-PLUGIN.VERSION>
     <SLF4J-API.VERSION>1.7.36</SLF4J-API.VERSION>
     <sonar.organization>imrafaelmerino</sonar.organization>
@@ -48,6 +48,7 @@
     <VERTX-CORE.VERSION>4.3.0</VERTX-CORE.VERSION>
   </properties>
   <dependencies>
+
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>

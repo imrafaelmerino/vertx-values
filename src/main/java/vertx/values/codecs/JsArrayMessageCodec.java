@@ -4,7 +4,6 @@ import io.vertx.core.buffer.Buffer;
 import io.vertx.core.eventbus.MessageCodec;
 import io.vertx.core.json.DecodeException;
 import jsonvalues.JsArray;
-import jsonvalues.JsObj;
 import jsonvalues.MalformedJson;
 /**
  Codec that allows to send {@link JsArray} as messages
