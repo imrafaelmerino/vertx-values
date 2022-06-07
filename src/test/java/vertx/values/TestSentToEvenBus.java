@@ -10,7 +10,7 @@ import jsonvalues.JsObj;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import vertx.values.codecs.RegisterCodecsVerticle;
+import vertx.values.codecs.RegisterJsValuesCodecs;
 
 @ExtendWith(VertxExtension.class)
 public class TestSentToEvenBus {
@@ -24,7 +24,7 @@ public class TestSentToEvenBus {
         Checkpoint sameObjInstanceReceived = testContext.checkpoint();
         Checkpoint sameArrayInstanceReceived = testContext.checkpoint();
 
-        vertx.deployVerticle(new RegisterCodecsVerticle(),r -> codecsVerticleDeployed.flag());
+        vertx.deployVerticle(new RegisterJsValuesCodecs(), r -> codecsVerticleDeployed.flag());
 
         vertx.eventBus()
              .consumer("bounce", message -> message.reply(message.body()))

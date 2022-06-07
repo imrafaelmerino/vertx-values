@@ -11,7 +11,7 @@ import jsonvalues.JsObj;
  * If this verticle is deployed more than once, you'll receive a failure saying that
  * the codecs has already been registered
  */
-public class RegisterCodecsVerticle extends AbstractVerticle {
+public class RegisterJsValuesCodecs extends AbstractVerticle {
 
     @Override
     public void start(final Promise<Void> promise) {
@@ -21,7 +21,9 @@ public class RegisterCodecsVerticle extends AbstractVerticle {
 
             vertx.eventBus()
                     .registerDefaultCodec(JsArray.class, JsArrayMessageCodec.INSTANCE);
+
             promise.complete();
+
         } catch (Exception e) {
             promise.fail(e);
         }
