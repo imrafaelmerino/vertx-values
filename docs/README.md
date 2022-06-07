@@ -28,8 +28,8 @@ API than the Vertx JSON implementation.
 Every type (_Integer_, _String_, _JsonObject_, _JsonArray_, _Buffer_ etc.) that can be sent 
 across the Event Bus has an associated [MessageCodec](https://vertx.io/docs/apidocs/io/vertx/core/eventbus/MessageCodec.html) where it's defined how to serialize 
 and deserialize messages of that type. A third method called _transform_ is also 
-implemented. When a verticle sends a message to the event bus, Vertx intercepts 
-that message and calls its codecs transform method.
+implemented. When a verticle sends a message to the EB, Vertx intercepts 
+that message and calls its codecs _transform_ method.
 
 Go to the source package [io.vertx.core.eventbus.impl.codecs](https://vertx.io/docs/apidocs/io/vertx/core/eventbus/impl/codecs/package-frame.html) 
 to check out what types Vertx supports. The good thing is that you can define your own codecs 
@@ -54,7 +54,7 @@ public JsonObject transform(JsonObject message) {
 Since **Jackson** is not immutable at all, the _transform_ method of the JSON codecs 
 has to make a copy of the message before sending it to the EB. Otherwise, we'd have 
 a shared reference to an object among independent Verticles, which would be 
-a nightmare and violates some of the most basis principles of the message-passing 
+a nightmare and violates some of the most basis principles of message-passing 
 architectures.
 
 As I pointed out before, making a copy every time a message is sent is inefficient and put more pressure to 
@@ -65,10 +65,12 @@ vertx-values provides a codec to send [json-values](https://github.com/imrafaelm
 Take a look at the transform method of its codecs:
 
 ```java
+
 // vertx-effect impl
 public JsObj transform(final JsObj message) {
    return message;
 }
+
 ```
 
 **As you can see, it returns the same message without making any copy**.
@@ -78,5 +80,29 @@ especially in concurrent programs and architectures based on the actor model lik
 
 ## <a name="howto"><a/> How to
 
+To register the codecs from vertx-values is as simple as deploying a Verticle (
+in Vertx it could not have been otherwise 😀)
+
+```java  
+import vertx.values.codecs.RegisterJsValuesCodecs;
+
+vertx.deployVerticle(new RegisterJsValuesCodecs(), 
+                     r -> System.out.println("Registered codecs!")
+                    );
+                    
+```
+
+If you deploy de codecs more than once, you'll receive an error saying they've already been registered.
+
 
 ## <a name="inst"><a/> Installation
+
+```xml
+
+<dependency>
+    <groupId>com.github.imrafaelmerino</groupId>
+    <artifactId>vertx-json-values</artifactId>
+    <version>0.1</version>
+</dependency>
+
+```
