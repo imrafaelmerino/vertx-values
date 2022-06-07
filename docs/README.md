@@ -11,12 +11,12 @@
 - [Installation](#inst)
 
 ## <a name="goal"><a/> Goal
-According to Vertx documentation, it’s a convention and common practice in Vert.x to send messages as JSON.
-JSON is very easy to create, read and parse in all the languages that
-Vert.x supports, so it has become a kind of lingua franca for Vert.x.
+According to Vertx documentation, it’s a convention and common practice in Vert.x to 
+send messages as JSON. JSON is very easy to create, read and parse in all the languages 
+that Vert.x supports, so it has become a kind of lingua franca for Vert.x.
 
-The problem is that, every time a message of type [JsonObject or JsonArray](https://vertx.io/docs/apidocs/io/vertx/core/json/package-summary.html) 
-is sent across the Event Bus, Vertx has to make a copy of the message. The bigger the JSON, 
+**The problem is that, every time a message of type [JsonObject or JsonArray](https://vertx.io/docs/apidocs/io/vertx/core/json/package-summary.html) 
+is sent across the Event Bus, Vertx has to make a copy of the message**. The bigger the JSON, 
 the worse the impact on performance. Moreover, it puts a lot of pressure on the Garbage Collector.
 **vertx-values solves this adding support to be able to send the immutable JSON from
 [json-values](https://github.com/imrafaelmerino/json-values)**. json-values is a truly 
