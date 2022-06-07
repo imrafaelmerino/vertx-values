@@ -11,7 +11,7 @@
 - [Installation](#inst)
 
 ## <a name="goal"><a/> Goal
-It’s a convention and common practice in Vert.x to send messages as JSON.
+According to Vertx documentation, it’s a convention and common practice in Vert.x to send messages as JSON.
 JSON is very easy to create, read and parse in all the languages that
 Vert.x supports, so it has become a kind of lingua franca for Vert.x.
 
