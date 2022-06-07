@@ -21,7 +21,7 @@ the worse the impact on performance. Moreover, it puts a lot of pressure on the 
 **vertx-values solves this adding support to be able to send the immutable JSON from
 [json-values](https://github.com/imrafaelmerino/json-values)**. json-values is a truly 
 immutable JSON implemented with persistent data structures. json-values also has a richer 
-API than Vertx implementation.
+API than the Vertx JSON implementation.
 
 ## <a name="exp"><a/> Explanation
 
