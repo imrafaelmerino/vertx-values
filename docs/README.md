@@ -18,17 +18,19 @@ that Vert.x supports, so it has become a kind of lingua franca for Vert.x.
 **The problem is that, every time a message of type [JsonObject or JsonArray](https://vertx.io/docs/apidocs/io/vertx/core/json/package-summary.html) 
 is sent across the Event Bus, Vertx has to make a copy of the message**. The bigger the JSON, 
 the worse the impact on performance. Moreover, it puts a lot of pressure on the Garbage Collector.
-**vertx-values solves this adding support to be able to send the immutable JSON from
+**vertx-values solves this adding support to send the immutable JSON from
 [json-values](https://github.com/imrafaelmerino/json-values)**. json-values is a truly 
-immutable JSON implemented with persistent data structures. json-values also has a richer 
-API than the Vertx JSON implementation.
+immutable JSON implemented with persistent data structures with a rich and simple
+API to create, validate, generate and manipulate JSON. It's been designed from FP principles.
+
 
 ## <a name="exp"><a/> Explanation
 
 Every type (_Integer_, _String_, _JsonObject_, _JsonArray_, _Buffer_ etc.) that can be sent 
-across the Event Bus has an associated [MessageCodec](https://vertx.io/docs/apidocs/io/vertx/core/eventbus/MessageCodec.html) where it's defined how to serialize 
-and deserialize messages of that type. A third method called _transform_ is also 
-implemented. When a verticle sends a message to the EB, Vertx intercepts 
+across the Event Bus has an associated [MessageCodec](https://vertx.io/docs/apidocs/io/vertx/core/eventbus/MessageCodec.html). 
+A MessageCodec is the place where it's defined how to serialize 
+and deserialize messages. A third method called _transform_ is also 
+implemented in this class. When a verticle sends a message to the EB, Vertx intercepts 
 that message and calls its codecs _transform_ method.
 
 Go to the source package [io.vertx.core.eventbus.impl.codecs](https://vertx.io/docs/apidocs/io/vertx/core/eventbus/impl/codecs/package-frame.html) 
@@ -50,9 +52,8 @@ public JsonObject transform(JsonObject message) {
 
 ```
 
-
 Since **Jackson** is not immutable at all, the _transform_ method of the JSON codecs 
-has to make a copy of the message before sending it to the EB. Otherwise, we'd have 
+has to make a copy of the message before sending it to the EB. Otherwise, we would have 
 a shared reference to an object among independent Verticles, which would be 
 a nightmare and violates some of the most basis principles of message-passing 
 architectures.
