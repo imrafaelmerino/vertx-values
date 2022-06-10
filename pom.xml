@@ -6,7 +6,7 @@
   <groupId>com.github.imrafaelmerino</groupId>
   <artifactId>vertx-json-values</artifactId>
   <packaging>jar</packaging>
-  <version>0.1</version>
+  <version>0.2</version>
   <name>vertx-json-values</name>
   <description>Vertx codecs to work with json-values</description>
   <url>https://github.com/imrafaelmerino/vertx-values</url>

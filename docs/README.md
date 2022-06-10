@@ -4,23 +4,24 @@
 [![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=imrafaelmerino_vertx-values&metric=coverage)](https://sonarcloud.io/component_measures/metric/coverage/list?id=imrafaelmerino_vertx-values)
 [![Maven](https://img.shields.io/maven-central/v/com.github.imrafaelmerino/vertx-json-values/0.1)](https://search.maven.org/artifact/com.github.imrafaelmerino/vertx-json-values/0.1/jar)
 
-
 - [Goal](#goal)
 - [Explanation](#exp)
 - [How-to](#howto)
+- [Performance](#perf)
 - [Installation](#inst)
 
 ## <a name="goal"><a/> Goal
-According to Vertx documentation, it’s a convention and common practice in Vert.x to 
+According to Vertx documentation: 
+_it’s a convention and common practice in Vert.x to 
 send messages as JSON. JSON is very easy to create, read and parse in all the languages 
-that Vert.x supports, so it has become a kind of lingua franca for Vert.x.
+that Vert.x supports, so it has become a kind of lingua franca for Vert.x._
 
 **The problem is that, every time a message of type [JsonObject or JsonArray](https://vertx.io/docs/apidocs/io/vertx/core/json/package-summary.html) 
 is sent across the Event Bus, Vertx has to make a copy of the message**. The bigger the JSON, 
 the worse the impact on performance. Moreover, it puts a lot of pressure on the Garbage Collector.
 **vertx-values solves this adding support to send the immutable JSON from
 [json-values](https://github.com/imrafaelmerino/json-values)**. json-values is a truly 
-immutable JSON implemented with persistent data structures with a rich and simple
+immutable JSON implemented with persistent data structures with a functional and simple
 API to create, validate, generate and manipulate JSON. It's been designed from FP principles.
 
 
@@ -63,7 +64,7 @@ the Garbage Collector, especially if you have a large number of Verticles commun
 each other.
 
 vertx-values provides a codec to send [json-values](https://github.com/imrafaelmerino/json-values) across the EB. 
-Take a look at the transform method of its codecs:
+Take a look at the _transform_ method of its codecs:
 
 ```java
 
@@ -94,6 +95,9 @@ vertx.deployVerticle(new RegisterJsValuesCodecs(),
 ```
 
 If you deploy de codecs more than once, you'll receive an error saying they've already been registered.
+
+## <a name="perf"><a/> Performance
+
 
 
 ## <a name="inst"><a/> Installation
