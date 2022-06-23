@@ -110,7 +110,9 @@ Let's define a Verticle named "bounce" that replies with the same message it rec
 ``` java
 
  vertx.eventBus()
-             .consumer("bounce", message -> message.reply(message.body()))
+      .consumer("bounce", 
+                message -> message.reply(message.body())
+               )
 
 ```
 
