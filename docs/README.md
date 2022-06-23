@@ -1,8 +1,10 @@
 <img src="./logo/package_twitter_swe2n4mg/color1/full/coverphoto/white_logo_color1_background.png" alt="logo"/>
 
 
+
 "_Messages take time, and they propagate through space, there’s no guarantee it gets there._"
 **Joe Armstrong**
+
 
 
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=imrafaelmerino_vertx-values&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=imrafaelmerino_vertx-values)
@@ -104,6 +106,27 @@ If you deploy de codecs more than once, you'll receive an error saying they've a
 
 ## <a name="perf"><a/> Performance
 
+Let's define a Verticle named "bounce" that replies with the same message it receives:
+
+``` java
+
+ vertx.eventBus()
+             .consumer("bounce", message -> message.reply(message.body()))
+
+```
+
+We are going to send two kind of messages to the bounce Verticle:
+- A JSON object: obj
+- An JSON array of four obj : [obj, obj, obj, obj]
+
+
+and wait for the response, comparing the results using the JSON from Vert.x and the 
+JSON from json-values. Of course, the benchmark will be carried out with [jmh](https://openjdk.java.net/projects/code-tools/jmh/).
+
+I've run the test 8 different times and uploaded the results to [JMH Visualizer](https://jmh.morethan.io/), 
+getting the following chart:
+
+<img src="./sending_one_message_results.png" alt="sending messages to the event bus"/>
 
 
 ## <a name="inst"><a/> Installation
