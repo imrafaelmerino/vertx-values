@@ -115,7 +115,7 @@ Let's define a Verticle named "bounce" that replies with the same message it rec
 
 We are going to send two kind of messages to the bounce Verticle:
 - A JSON object: obj
-- An JSON array of four obj : [obj, obj, obj, obj]
+- An JSON array of four objects: [obj, obj, obj, obj]
 
 
 and wait for the response, comparing the results using the JSON from Vert.x and the 
