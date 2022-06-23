@@ -1,4 +1,4 @@
-<img src="./logo/package_twitter_swe2n4mg/color1/full/profilepicture/white_logo_color1_background.png" alt="logo"/>
+<img src="./logo/package_twitter_swe2n4mg/color1/full/coverphoto/white_logo_color1_background.png" alt="logo"/>
 
 
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=imrafaelmerino_vertx-values&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=imrafaelmerino_vertx-values)
