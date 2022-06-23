@@ -14,6 +14,7 @@
 - [Explanation](#exp)
 - [How-to](#howto)
 - [Performance](#perf)
+- [Requirements](#requirements)
 - [Installation](#inst)
 
 ## <a name="goal"><a/> Goal
@@ -134,6 +135,10 @@ On the other hand, sending the JSON  object from Vert.x, the performance goes do
 40%, and it collapses sending the JSON array, what makes sense since copying an object
 takes longer the bigger it is.
 
+
+## <a name="requirements"><a/> Requirements
+
+Java 8 or greater.
 
 ## <a name="inst"><a/> Installation
 
