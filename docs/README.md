@@ -128,6 +128,13 @@ getting the following chart:
 
 <img src="./sending_one_message_results.png" alt="sending messages to the event bus"/>
 
+As you can see, no matter if you send an object or an array four times bigger, you
+get the same result with vertx-values. Since there is no copy before sending the
+messages, it makes sense.
+
+On the other hand, sending the JSON  object from Vert.x, the performance goes down around
+40%, and it collapses sending the JSON array, what makes sense since copying an object
+takes longer the bigger the object is.
 
 ## <a name="inst"><a/> Installation
 
