@@ -1,10 +1,8 @@
 <img src="./logo/package_twitter_swe2n4mg/color1/full/coverphoto/white_logo_color1_background.png" alt="logo"/>
 
 
-
 "_Immutability Changes Everything._"
 **Pat Helland**
-
 
 
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=imrafaelmerino_vertx-values&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=imrafaelmerino_vertx-values)
@@ -134,7 +132,7 @@ messages, it makes sense.
 
 On the other hand, sending the JSON  object from Vert.x, the performance goes down around
 40%, and it collapses sending the JSON array, what makes sense since copying an object
-takes longer the bigger the object is.
+takes longer the bigger it is.
 
 
 ## <a name="inst"><a/> Installation
