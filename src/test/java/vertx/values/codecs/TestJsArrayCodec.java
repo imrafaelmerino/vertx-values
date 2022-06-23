@@ -26,7 +26,7 @@ public class TestJsArrayCodec {
                                 "f", JsArrayGen.arbitrary(JsIntGen.arbitrary(0, 10), 10),
                                 "g", JsBinaryGen.arbitrary(0, 100),
                                 "h", JsBigDecGen.arbitrary(),
-                                "i", JsBigIntGen.biased(0, 25),
+                                "i", JsBigIntGen.biased(25),
                                 "j", Gen.cons(JsArray.empty()
                                 )
                         )
@@ -38,7 +38,7 @@ public class TestJsArrayCodec {
                 JsIntGen.biased(),
                 JsLongGen.biased(),
                 JsBigDecGen.biased(),
-                JsBigIntGen.biased(0, 25),
+                JsBigIntGen.biased(25),
                 JsBoolGen.arbitrary(),
                 Gen.cons(JsObj.empty()),
                 Gen.cons(JsNull.NULL),

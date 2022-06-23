@@ -26,7 +26,7 @@ public class TestJsObjCodecs {
                                 "f", JsArrayGen.arbitrary(JsIntGen.arbitrary(0, 10), 10),
                                 "g", JsBinaryGen.arbitrary(0, 100),
                                 "h", JsBigDecGen.arbitrary(),
-                                "i", JsBigIntGen.biased(0, 25),
+                                "i", JsBigIntGen.biased(25),
                                 "j", Gen.cons(JsArray.empty()
                                 )
                         )

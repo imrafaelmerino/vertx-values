@@ -20,3 +20,6 @@ java -Xms256m \
 -rff results/three-message-output-${VERSION}-${NOW}.json \
 -rf json \
 vertxvalues\.benchmark\.SendThreeMessageToEventBus
+
+
+mv /cargamasiva/script_delta/load-sat-customers-3.4.0.0.jar /cargamasiva/script_delta/old/oldjars/
