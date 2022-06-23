@@ -76,7 +76,7 @@ Take a look at the _transform_ method of its codecs:
 
 ```java
 
-// vertx-effect impl
+// vertx-values impl
 public JsObj transform(final JsObj message) {
    return message;
 }
