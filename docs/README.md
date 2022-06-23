@@ -2,8 +2,8 @@
 
 
 
-"_Messages take time, and they propagate through space, there’s no guarantee it gets there._"
-**Joe Armstrong**
+"_Immutability Changes Everything._"
+**Pat Helland**
 
 
 
@@ -135,6 +135,7 @@ messages, it makes sense.
 On the other hand, sending the JSON  object from Vert.x, the performance goes down around
 40%, and it collapses sending the JSON array, what makes sense since copying an object
 takes longer the bigger the object is.
+
 
 ## <a name="inst"><a/> Installation
 
