@@ -18,14 +18,15 @@
 
 ## <a name="goal"><a/> Goal
 According to Vertx documentation: 
-_it’s a convention and common practice in Vert.x to 
-send messages as JSON. JSON is very easy to create, read and parse in all the languages 
-that Vert.x supports, so it has become a kind of lingua franca for Vert.x._
 
-**The problem is that, every time a message of type [JsonObject or JsonArray](https://vertx.io/docs/apidocs/io/vertx/core/json/package-summary.html) 
+_it’s a convention and common practice in Vertx to 
+send messages as JSON. JSON is very easy to create, read and parse in all the languages 
+that Vertx supports, so it has become a kind of lingua franca for Vertx._
+
+**The problem is that every time a message of type [JsonObject or JsonArray](https://vertx.io/docs/apidocs/io/vertx/core/json/package-summary.html) 
 is sent across the Event Bus, Vertx has to make a copy of the message**. The bigger the JSON, 
 the worse the impact on performance. Moreover, it puts a lot of pressure on the Garbage Collector.
-**vertx-values solves this adding support to send the immutable JSON from
+**vertx-values solves this by adding support to send the immutable JSON from
 [json-values](https://github.com/imrafaelmerino/json-values)**. json-values is a truly 
 immutable JSON implemented with persistent data structures with a functional and simple
 API to create, validate, generate and manipulate JSON. It's been designed from FP principles.
@@ -33,15 +34,15 @@ API to create, validate, generate and manipulate JSON. It's been designed from F
 
 ## <a name="exp"><a/> Explanation
 
-Every type (_Integer_, _String_, _JsonObject_, _JsonArray_, _Buffer_ etc.) that can be sent 
+Every type (_Integer_, _String_, _JsonObject_, _JsonArray_, _Buffer_, etc.) that can be sent 
 across the Event Bus has an associated [MessageCodec](https://vertx.io/docs/apidocs/io/vertx/core/eventbus/MessageCodec.html). 
-A MessageCodec is the place where it's defined how to serialize 
+A MessageCodec is where it's defined how to serialize 
 and deserialize messages. A third method called _transform_ is also 
 implemented in this class. When a verticle sends a message to the EB, Vertx intercepts 
 that message and calls its codecs _transform_ method.
 
 Go to the source package [io.vertx.core.eventbus.impl.codecs](https://vertx.io/docs/apidocs/io/vertx/core/eventbus/impl/codecs/package-frame.html) 
-to check out what types Vertx supports. The good thing is that you can define your own codecs 
+to check out what types Vertx supports. The good thing is that you can define your codecs 
 to send messages of new types to the EB.
 
 The default JSONs implemented in Vertx with **Jackson**, [JsonObject](https://vertx.io/docs/apidocs/io/vertx/core/json/JsonObject.html) and 
@@ -62,10 +63,10 @@ public JsonObject transform(JsonObject message) {
 Since **Jackson** is not immutable at all, the _transform_ method of the JSON codecs 
 has to make a copy of the message before sending it to the EB. Otherwise, we would have 
 a shared reference to an object among independent Verticles, which would be 
-a nightmare and violates some of the most basis principles of message-passing 
+a nightmare and violates some of the most basic principles of message-passing 
 architectures.
 
-As I pointed out before, making a copy every time a message is sent is inefficient and put more pressure to 
+As I pointed out before, making a copy every time a message is sent is inefficient and put more pressure on 
 the Garbage Collector, especially if you have a large number of Verticles communicating one to
 each other.
 
@@ -115,12 +116,12 @@ Let's define a Verticle named "bounce" that replies with the same message it rec
 
 ```
 
-We are going to send two kind of messages to the bounce Verticle:
+We are going to send two kinds of messages to the bounce Verticle:
 - A JSON object: obj
 - An JSON array of four objects: [obj, obj, obj, obj]
 
 
-and wait for the response, comparing the results using the JSON from Vert.x and the 
+and wait for the response, comparing the results using the JSON from Vertx and the 
 JSON from json-values. Of course, the benchmark will be carried out with [jmh](https://openjdk.java.net/projects/code-tools/jmh/).
 
 I've run the test 8 different times and uploaded the results to [JMH Visualizer](https://jmh.morethan.io/), 
@@ -132,8 +133,8 @@ As you can see, no matter if you send an object or an array four times bigger, y
 get the same result with vertx-values. Since there is no copy before sending the
 messages, it makes sense.
 
-On the other hand, sending the JSON  object from Vert.x, the performance goes down around
-40%, and it collapses sending the JSON array, what makes sense since copying an object
+On the other hand, sending the JSON  object from Vertx, the performance goes down around
+40%, and it collapses sending the JSON array, which makes sense since copying an object
 takes longer the bigger it is.
 
 
