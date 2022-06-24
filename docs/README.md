@@ -37,7 +37,7 @@ API to create, validate, generate and manipulate JSON. It's been designed from F
 Every type (_Integer_, _String_, _JsonObject_, _JsonArray_, _Buffer_, etc.) that can be sent 
 across the Event Bus has an associated [MessageCodec](https://vertx.io/docs/apidocs/io/vertx/core/eventbus/MessageCodec.html). 
 A MessageCodec is where it's defined how to serialize 
-and deserialize messages. A third method called _transform_ is also 
+and deserialize a message. A third method called _transform_ is also 
 implemented in this class. When a verticle sends a message to the EB, Vertx intercepts 
 that message and calls its codecs _transform_ method.
 
@@ -60,7 +60,7 @@ public JsonObject transform(JsonObject message) {
 
 ```
 
-Since **Jackson** is not immutable at all, the _transform_ method of the JSON codecs 
+Since **Jackson** is not immutable at all, the _transform_ method 
 has to make a copy of the message before sending it to the EB. Otherwise, we would have 
 a shared reference to an object among independent Verticles, which would be 
 a nightmare and violates some of the most basic principles of message-passing 
@@ -70,7 +70,7 @@ As I pointed out before, making a copy every time a message is sent is inefficie
 the Garbage Collector, especially if you have a large number of Verticles communicating one to
 each other.
 
-vertx-values provides a codec to send [json-values](https://github.com/imrafaelmerino/json-values) across the EB. 
+vertx-values provides codecs to send [json-values](https://github.com/imrafaelmerino/json-values) across the EB. 
 Take a look at the _transform_ method of its codecs:
 
 ```java
@@ -122,12 +122,16 @@ We are going to send two kinds of messages to the bounce Verticle:
 
 
 and wait for the response, comparing the results using the JSON from Vertx and the 
-JSON from json-values. Of course, the benchmark will be carried out with [jmh](https://openjdk.java.net/projects/code-tools/jmh/).
+JSON from json-values. Of course, the benchmark has been carried out with
+[jmh](https://openjdk.java.net/projects/code-tools/jmh/).
 
-I've run the test 8 different times and uploaded the results to [JMH Visualizer](https://jmh.morethan.io/), 
+I've run the test 8 different times in my computer (MacBookPro Apple 8 cores M1 16GB LPDDR4)
+and uploaded the results to [JMH Visualizer](https://jmh.morethan.io/), 
 getting the following chart:
 
+
 <img src="./sending_one_message_results.png" alt="sending messages to the event bus"/>
+
 
 As you can see, no matter if you send an object or an array four times bigger, you
 get the same result with vertx-values. Since there is no copy before sending the
