@@ -38,7 +38,7 @@ Every type (_Integer_, _String_, _JsonObject_, _JsonArray_, _Buffer_, etc.) that
 across the Event Bus has an associated [MessageCodec](https://vertx.io/docs/apidocs/io/vertx/core/eventbus/MessageCodec.html). 
 A MessageCodec is where it's defined how to serialize 
 and deserialize a message. A third method called _transform_ is also 
-implemented in this class. When a verticle sends a message to the EB, Vertx intercepts 
+implemented in this class. When a verticle sends a message locally to the EB, Vertx intercepts 
 that message and calls its codecs _transform_ method.
 
 Go to the source package [io.vertx.core.eventbus.impl.codecs](https://vertx.io/docs/apidocs/io/vertx/core/eventbus/impl/codecs/package-frame.html) 
