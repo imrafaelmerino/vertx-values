@@ -48,7 +48,7 @@ to send messages of new types to the EB.
 The default JSONs implemented in Vertx with **Jackson**, [JsonObject](https://vertx.io/docs/apidocs/io/vertx/core/json/JsonObject.html) and 
 [JsonArray](https://vertx.io/docs/apidocs/io/vertx/core/json/JsonArray.html), have the codecs [JsonObjectMessageCodec](https://vertx.io/docs/apidocs/io/vertx/core/eventbus/impl/codecs/JsonObjectMessageCodec.html) 
 and [JsonArrayMessageCodec](https://vertx.io/docs/apidocs/io/vertx/core/eventbus/impl/codecs/JsonArrayMessageCodec.html). Let's
-take a look at their _transform_ method:
+take a look at their _transform_ method implementation:
 
 
 ```java
