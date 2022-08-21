@@ -6,7 +6,7 @@
   <groupId>com.github.imrafaelmerino</groupId>
   <artifactId>vertx-json-values</artifactId>
   <packaging>jar</packaging>
-  <version>0.4</version>
+  <version>0.5</version>
   <name>vertx-json-values</name>
   <description>Vertx codecs to work with json-values</description>
   <url>https://github.com/imrafaelmerino/vertx-values</url>
@@ -44,7 +44,7 @@
     <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     <VERTX-JUNIT5.VERSION>4.3.0</VERTX-JUNIT5.VERSION>
     <JUNIT-JUPITER-API.VERSION>5.8.2</JUNIT-JUPITER-API.VERSION>
-    <JSON-VALUES.VERSION>11.6.0</JSON-VALUES.VERSION>
+    <JSON-VALUES.VERSION>11.7.0</JSON-VALUES.VERSION>
     <VERTX-CORE.VERSION>4.3.0</VERTX-CORE.VERSION>
   </properties>
   <dependencies>

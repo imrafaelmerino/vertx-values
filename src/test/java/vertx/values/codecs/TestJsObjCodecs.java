@@ -30,8 +30,8 @@ public class TestJsObjCodecs {
                                 "j", Gen.cons(JsArray.empty()
                                 )
                         )
-                        .setAllOptional()
-                        .setAllNullable();
+                        .withAllOptKeys()
+                        .withAllNullValues();
 
         JsObjGen ys = xs.set("k", xs);
 

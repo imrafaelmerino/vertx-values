@@ -30,8 +30,8 @@ public class TestJsArrayCodec {
                                 "j", Gen.cons(JsArray.empty()
                                 )
                         )
-                        .setAllOptional()
-                        .setAllNullable();
+                        .withAllOptKeys()
+                        .withAllNullValues();
 
         Gen<JsArray> ys = JsTupleGen.of(
                 JsStrGen.biased(0, 10),
