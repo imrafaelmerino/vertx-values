@@ -2,8 +2,8 @@ package vertx.values.codecs;
 
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.json.DecodeException;
+import jsonvalues.JsParserException;
 import jsonvalues.Json;
-import jsonvalues.MalformedJson;
 
 import static java.util.Objects.requireNonNull;
 
@@ -25,7 +25,7 @@ abstract class JsMessageCodec<J extends Json<J>> {
             int length = requireNonNull(buffer).getInt(pos);
             pos += 4;
             return parse(buffer.getString(pos, pos + length));
-        } catch (MalformedJson exp) {
+        } catch (JsParserException exp) {
             throw new DecodeException("error decoding json", exp);
         }
     }
