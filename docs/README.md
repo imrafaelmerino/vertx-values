@@ -153,7 +153,7 @@ Java 8 or greater.
 <dependency>
     <groupId>com.github.imrafaelmerino</groupId>
     <artifactId>vertx-json-values</artifactId>
-    <version>0.5</version>
+    <version>0.6</version>
 </dependency>
 
 ```
