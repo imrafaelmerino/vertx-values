@@ -44,8 +44,7 @@ package [io.vertx.core.eventbus.impl.codecs](https://vertx.io/docs/apidocs/io/ve
 to check out what types Vertx supports. The good thing is that you can define your codecs
 to send messages of new types to the EB.
 
-The default JSONs implemented in Vertx with **Jackson
-**, [JsonObject](https://vertx.io/docs/apidocs/io/vertx/core/json/JsonObject.html) and
+The default JSONs implemented in Vertx with **Jackson**, [JsonObject](https://vertx.io/docs/apidocs/io/vertx/core/json/JsonObject.html) and
 [JsonArray](https://vertx.io/docs/apidocs/io/vertx/core/json/JsonArray.html), have the
 codecs [JsonObjectMessageCodec](https://vertx.io/docs/apidocs/io/vertx/core/eventbus/impl/codecs/JsonObjectMessageCodec.html)
 and [JsonArrayMessageCodec](https://vertx.io/docs/apidocs/io/vertx/core/eventbus/impl/codecs/JsonArrayMessageCodec.html).
