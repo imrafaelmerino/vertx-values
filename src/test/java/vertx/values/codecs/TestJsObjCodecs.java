@@ -23,7 +23,7 @@ public class TestJsObjCodecs {
                                 "c", JsLongGen.biased(),
                                 "d", JsBoolGen.arbitrary(),
                                 "e", JsInstantGen.arbitrary(0, Integer.MAX_VALUE),
-                                "f", JsArrayGen.arbitrary(JsIntGen.arbitrary(0, 10), 10),
+                                "f", JsArrayGen.arbitrary(JsIntGen.arbitrary(0, 10), 10,10),
                                 "g", JsBinaryGen.arbitrary(0, 100),
                                 "h", JsBigDecGen.arbitrary(),
                                 "i", JsBigIntGen.biased(25),

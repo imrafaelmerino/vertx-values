@@ -3,11 +3,10 @@
 "_Immutability Changes Everything._"
 **Pat Helland**
 
-
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=imrafaelmerino_vertx-values&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=imrafaelmerino_vertx-values)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=imrafaelmerino_vertx-values&metric=alert_status)](https://sonarcloud.io/dashboard?id=imrafaelmerino_vertx-values)
 [![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=imrafaelmerino_vertx-values&metric=coverage)](https://sonarcloud.io/component_measures/metric/coverage/list?id=imrafaelmerino_vertx-values)
-[![Maven](https://img.shields.io/maven-central/v/com.github.imrafaelmerino/vertx-json-values/0.7)](https://search.maven.org/artifact/com.github.imrafaelmerino/vertx-json-values/0.7/jar)
+[![Maven](https://img.shields.io/maven-central/v/com.github.imrafaelmerino/vertx-json-values/0.8)](https://search.maven.org/artifact/com.github.imrafaelmerino/vertx-json-values/0.8/jar)
 
 - [Goal](#goal)
 - [Explanation](#exp)
@@ -17,41 +16,43 @@
 - [Installation](#inst)
 
 ## <a name="goal"><a/> Goal
-According to Vertx documentation: 
 
-_it’s a convention and common practice in Vertx to 
-send messages as JSON. JSON is very easy to create, read and parse in all the languages 
-that Vertx supports, so it has become a kind of lingua franca for Vertx._
+The goal of this section is to address a common practice in Vertx, which involves sending messages in JSON format due to
+its simplicity and widespread compatibility across various programming languages supported by Vertx. However, a
+significant challenge arises when sending messages as JsonObject or JsonArray types, as Vertx is required to create a
+copy of the message each time it's sent over the Event Bus. This process becomes increasingly detrimental to
+performance, especially with larger JSON payloads, and places a considerable burden on the Garbage Collector.
 
-**The problem is that every time a message of type [JsonObject or JsonArray](https://vertx.io/docs/apidocs/io/vertx/core/json/package-summary.html) 
-is sent across the Event Bus, Vertx has to make a copy of the message**. The bigger the JSON, 
-the worse the impact on performance. Moreover, it puts a lot of pressure on the Garbage Collector.
-**vertx-values solves this by adding support to send the immutable JSON from
-[json-values](https://github.com/imrafaelmerino/json-values)**. json-values is a truly 
-immutable JSON implemented with persistent data structures with a functional and simple
-API to create, validate, generate and manipulate JSON. It's been designed from FP principles.
-
+To mitigate these issues, vertx-values steps in to provide support for transmitting immutable JSON objects from
+json-values. This library offers a genuinely immutable JSON representation achieved through the use of persistent data
+structures and adheres to functional programming principles. Not only does json-values enable the creation, validation,
+generation, and manipulation of JSON data, but it also offers a straightforward and functional API for these tasks. The
+ultimate goal is to enhance the efficiency and performance of JSON message transmission within Vertx applications.
 
 ## <a name="exp"><a/> Explanation
 
-Every type (_Integer_, _String_, _JsonObject_, _JsonArray_, _Buffer_, etc.) that can be sent 
-across the Event Bus has an associated [MessageCodec](https://vertx.io/docs/apidocs/io/vertx/core/eventbus/MessageCodec.html). 
-A MessageCodec is where it's defined how to serialize 
-and deserialize a message. A third method called _transform_ is also 
-implemented in this class. When a verticle sends a message locally to the EB, Vertx intercepts 
+Every type (_Integer_, _String_, _JsonObject_, _JsonArray_, _Buffer_, etc.) that can be sent
+across the Event Bus has an
+associated [MessageCodec](https://vertx.io/docs/apidocs/io/vertx/core/eventbus/MessageCodec.html).
+A MessageCodec is where it's defined how to serialize
+and deserialize a message. A third method called _transform_ is also
+implemented in this class. When a verticle sends a message locally to the EB, Vertx intercepts
 that message and calls its codecs _transform_ method.
 
-Go to the source package [io.vertx.core.eventbus.impl.codecs](https://vertx.io/docs/apidocs/io/vertx/core/eventbus/impl/codecs/package-frame.html) 
-to check out what types Vertx supports. The good thing is that you can define your codecs 
+Go to the source
+package [io.vertx.core.eventbus.impl.codecs](https://vertx.io/docs/apidocs/io/vertx/core/eventbus/impl/codecs/package-frame.html)
+to check out what types Vertx supports. The good thing is that you can define your codecs
 to send messages of new types to the EB.
 
-The default JSONs implemented in Vertx with **Jackson**, [JsonObject](https://vertx.io/docs/apidocs/io/vertx/core/json/JsonObject.html) and 
-[JsonArray](https://vertx.io/docs/apidocs/io/vertx/core/json/JsonArray.html), have the codecs [JsonObjectMessageCodec](https://vertx.io/docs/apidocs/io/vertx/core/eventbus/impl/codecs/JsonObjectMessageCodec.html) 
-and [JsonArrayMessageCodec](https://vertx.io/docs/apidocs/io/vertx/core/eventbus/impl/codecs/JsonArrayMessageCodec.html). Let's
+The default JSONs implemented in Vertx with **Jackson
+**, [JsonObject](https://vertx.io/docs/apidocs/io/vertx/core/json/JsonObject.html) and
+[JsonArray](https://vertx.io/docs/apidocs/io/vertx/core/json/JsonArray.html), have the
+codecs [JsonObjectMessageCodec](https://vertx.io/docs/apidocs/io/vertx/core/eventbus/impl/codecs/JsonObjectMessageCodec.html)
+and [JsonArrayMessageCodec](https://vertx.io/docs/apidocs/io/vertx/core/eventbus/impl/codecs/JsonArrayMessageCodec.html).
+Let's
 take a look at their _transform_ method implementation:
 
-
-```java
+```code
 
 // Vertx impl 
 public JsonObject transform(JsonObject message) {
@@ -60,20 +61,20 @@ public JsonObject transform(JsonObject message) {
 
 ```
 
-Since **Jackson** is not immutable at all, the _transform_ method 
-has to make a copy of the message before sending it to the EB. Otherwise, we would have 
-a shared reference to an object among independent Verticles, which would be 
-a nightmare and violates some of the most basic principles of message-passing 
+Since **Jackson** is not immutable at all, the _transform_ method
+has to make a copy of the message before sending it to the EB. Otherwise, we would have
+a shared reference to an object among independent Verticles, which would be
+a nightmare and violates some of the most basic principles of message-passing
 architectures.
 
-As I pointed out before, making a copy every time a message is sent is inefficient and put more pressure on 
+As I pointed out before, making a copy every time a message is sent is inefficient and put more pressure on
 the Garbage Collector, especially if you have a large number of Verticles communicating one to
 each other.
 
-vertx-values provides codecs to send [json-values](https://github.com/imrafaelmerino/json-values) across the EB. 
+vertx-values provides codecs to send [json-values](https://github.com/imrafaelmerino/json-values) across the EB.
 Take a look at the _transform_ method of its codecs:
 
-```java
+```code
 
 // vertx-values impl
 public JsObj transform(final JsObj message) {
@@ -83,16 +84,15 @@ public JsObj transform(final JsObj message) {
 ```
 
 **As you can see, it returns the same message without making any copy**.
-And if that was not enough, immutable data structures have a lot of benefits, 
+And if that was not enough, immutable data structures have a lot of benefits,
 especially in concurrent programs and architectures based on the actor model like Vertx.
-
 
 ## <a name="howto"><a/> How to
 
-To register the codecs from vertx-values is as simple as deploying a Verticle (
-in Vertx it could not have been otherwise 😀)
+Registering the codecs from vertx-values is a straightforward process that involves deploying a Verticle. Here's how you
+can achieve this in Vertx:
 
-```java  
+```code  
 import vertx.values.codecs.RegisterJsValuesCodecs;
 
 vertx.deployVerticle(new RegisterJsValuesCodecs(), 
@@ -101,13 +101,19 @@ vertx.deployVerticle(new RegisterJsValuesCodecs(),
                     
 ```
 
-If you deploy de codecs more than once, you'll receive an error saying they've already been registered.
+When you deploy the codecs Verticle, it registers the necessary codecs for vertx-values. If you attempt to register the
+codecs more than once, Vertx will detect this and prevent duplicate registrations, ensuring that you don't inadvertently
+overwrite or interfere with previously registered codecs.
+
+This simple process allows you to enable the use of vertx-values' immutable JSON representations in your Vertx
+application, improving message transmission efficiency and reducing the load on the Garbage Collector.
 
 ## <a name="perf"><a/> Performance
 
-Let's define a Verticle named "bounce" that replies with the same message it receives:
+Let's illustrate the efficiency gains of using vertx-values with a practical example. We'll create a Verticle named "
+bounce" that echoes back the messages it receives:
 
-``` java
+``` code
 
  vertx.eventBus()
       .consumer("bounce", 
@@ -116,37 +122,40 @@ Let's define a Verticle named "bounce" that replies with the same message it rec
 
 ```
 
-We are going to send two kinds of messages to the bounce Verticle:
-- A JSON object: obj
-- An JSON array of four objects: [obj, obj, obj, obj]
+Now, we'll send two types of messages to the "bounce" Verticle for comparison:
 
+A JSON object: obj
+A JSON array containing four identical objects: [obj, obj, obj, obj]
+We will measure the performance of these message transmissions using both the JSON representation from Vertx and the
+JSON from json-values. To ensure accurate benchmarking, we'll employ jmh, a reliable Java benchmarking tool.
 
-and wait for the response, comparing the results using the JSON from Vertx and the 
-JSON from json-values. Of course, the benchmark has been carried out with
-[jmh](https://openjdk.java.net/projects/code-tools/jmh/).
-
-I've run the test 8 different times in my computer (MacBookPro Apple 8 cores M1 16GB LPDDR4)
-and uploaded the results to [JMH Visualizer](https://jmh.morethan.io/), 
-getting the following chart:
+I ran this benchmark test eight times on my computer (MacBook Pro with Apple M1 chip, 8 cores, 16GB LPDDR4 RAM) and
+recorded the results, which I subsequently uploaded to JMH Visualizer. Here's the chart summarizing the outcomes:
 
 
 <img src="./sending_one_message_results.png" alt="sending messages to the event bus"/>
 
 
-As you can see, no matter if you send an object or an array four times bigger, you
-get the same result with vertx-values. Since there is no copy before sending the
-messages, it makes sense.
+The chart reveals a clear performance advantage when using vertx-values. Whether sending a single JSON object or a JSON
+array four times larger, the results remain consistently efficient. This efficiency is attributed to the absence of
+message copying before transmission, a feature inherent to vertx-values.
 
-On the other hand, sending the JSON  object from Vertx, the performance goes down around
-40%, and it collapses sending the JSON array, which makes sense since copying an object
-takes longer the bigger it is.
-
+Conversely, when transmitting JSON objects from Vertx, performance declines by approximately 40%, and sending JSON
+arrays causes a severe performance degradation. This degradation is primarily due to the time-consuming process of
+copying larger objects. These findings underscore the benefits of adopting vertx-values for improved efficiency in your
+Vertx applications, particularly when handling substantial JSON payloads.
 
 ## <a name="requirements"><a/> Requirements
 
-Java 8 or greater.
+- For versions prior to 0.7, json-values requires Java 8 or later. Please note that only fixes are accepted for these
+  versions.
+- For versions starting from 0.8 and beyond, json-values mandates Java 17 or later.
 
 ## <a name="inst"><a/> Installation
+
+To include json-values in your project, add the corresponding dependency to your build tool based on your Java version:
+
+For Java 8 or higher:
 
 ```xml
 
@@ -155,5 +164,18 @@ Java 8 or greater.
     <artifactId>vertx-json-values</artifactId>
     <version>0.7</version>
 </dependency>
-
 ```
+
+For Java 17 or higher:
+
+```xml
+
+<dependency>
+    <groupId>com.github.imrafaelmerino</groupId>
+    <artifactId>vertx-json-values</artifactId>
+    <version>0.8</version>
+</dependency>
+```
+
+Choose the appropriate version according to your Java runtime.
+
