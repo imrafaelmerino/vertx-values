@@ -3,7 +3,7 @@
 "_Immutability Changes Everything._"
 **Pat Helland**
 
-[![Maven](https://img.shields.io/maven-central/v/com.github.imrafaelmerino/vertx-json-values/0.8)](https://search.maven.org/artifact/com.github.imrafaelmerino/vertx-json-values/0.8/jar)
+[![Maven](https://img.shields.io/maven-central/v/com.github.imrafaelmerino/vertx-json-values/1.0.0)](https://search.maven.org/artifact/com.github.imrafaelmerino/vertx-json-values/1.0.0/jar)
 
 - [Goal](#goal)
 - [Explanation](#exp)
@@ -169,7 +169,7 @@ For Java 17 or higher:
 <dependency>
     <groupId>com.github.imrafaelmerino</groupId>
     <artifactId>vertx-json-values</artifactId>
-    <version>0.8</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 

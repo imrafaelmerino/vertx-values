@@ -2,7 +2,7 @@ package vertx.values.codecs;
 
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.json.DecodeException;
-import jsonvalues.JsParserException;
+import jsonvalues.spec.JsParserException;
 import jsonvalues.Json;
 
 import static java.util.Objects.requireNonNull;
