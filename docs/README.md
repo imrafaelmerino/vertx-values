@@ -28,13 +28,13 @@ ultimate goal is to enhance the efficiency and performance of JSON message trans
 
 ## <a name="exp"><a/> Explanation
 
-Every type (_Integer_, _String_, _JsonObject_, _JsonArray_, _Buffer_, etc.) that can be sent
+Every type (`Integer`, `String`, `JsonObject`, `JsonArray`, `Buffer`, etc.) that can be sent
 across the Event Bus has an
 associated [MessageCodec](https://vertx.io/docs/apidocs/io/vertx/core/eventbus/MessageCodec.html).
-A MessageCodec is where it's defined how to serialize
-and deserialize a message. A third method called _transform_ is also
+A `MessageCodec` is where it's defined how to serialize
+and deserialize a message. A third method called `transform` is also
 implemented in this class. When a verticle sends a message locally to the EB, Vertx intercepts
-that message and calls its codecs _transform_ method.
+that message and calls its codecs `transform` method.
 
 Go to the source
 package [io.vertx.core.eventbus.impl.codecs](https://vertx.io/docs/apidocs/io/vertx/core/eventbus/impl/codecs/package-frame.html)
@@ -46,7 +46,7 @@ The default JSONs implemented in Vertx with **Jackson**, [JsonObject](https://ve
 codecs [JsonObjectMessageCodec](https://vertx.io/docs/apidocs/io/vertx/core/eventbus/impl/codecs/JsonObjectMessageCodec.html)
 and [JsonArrayMessageCodec](https://vertx.io/docs/apidocs/io/vertx/core/eventbus/impl/codecs/JsonArrayMessageCodec.html).
 Let's
-take a look at their _transform_ method implementation:
+take a look at their `transform` method implementation:
 
 ```code
 
@@ -57,7 +57,7 @@ public JsonObject transform(JsonObject message) {
 
 ```
 
-Since **Jackson** is not immutable at all, the _transform_ method
+Since **Jackson** is not immutable at all, the `transform` method
 has to make a copy of the message before sending it to the EB. Otherwise, we would have
 a shared reference to an object among independent Verticles, which would be
 a nightmare and violates some of the most basic principles of message-passing
@@ -68,7 +68,7 @@ the Garbage Collector, especially if you have a large number of Verticles commun
 each other.
 
 vertx-values provides codecs to send [json-values](https://github.com/imrafaelmerino/json-values) across the EB.
-Take a look at the _transform_ method of its codecs:
+Take a look at the `transform` method of its codecs:
 
 ```code
 
@@ -120,8 +120,9 @@ bounce" that echoes back the messages it receives:
 
 Now, we'll send two types of messages to the "bounce" Verticle for comparison:
 
-A JSON object: obj
-A JSON array containing four identical objects: [obj, obj, obj, obj]
+- A JSON object: obj
+- A JSON array containing four identical objects: [obj, obj, obj, obj]
+
 We will measure the performance of these message transmissions using both the JSON representation from Vertx and the
 JSON from json-values. To ensure accurate benchmarking, we'll employ jmh, a reliable Java benchmarking tool.
 
